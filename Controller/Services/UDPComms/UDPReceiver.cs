@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Controller.Messages;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -11,11 +12,11 @@ namespace Controller.Services.UDPComms
     internal class MessageEventArgs : EventArgs
     {
 
-        public dynamic Message { get; private set; }
+        public Packet Packet { get; init; }
 
-        public MessageEventArgs(dynamic message)
+        public MessageEventArgs(Packet packet)
         {
-            Message = message;
+            Packet = packet;
         }
     }
     internal class UDPReceiver
@@ -30,6 +31,9 @@ namespace Controller.Services.UDPComms
 
         private bool _stop = false;
 
+        /// <summary>
+        /// Invoked for all messages, but spits out a 'dynamic' type.
+        /// </summary>
         public event EventHandler<MessageEventArgs> MessageReceived;
 
         public UDPReceiver()
@@ -58,16 +62,16 @@ namespace Controller.Services.UDPComms
 
                     var messageString = Encoding.ASCII.GetString(bytes);
                     Console.WriteLine($"    {messageString}");
-                    var packet = JsonSerializer.Deserialize<Packet>(messageString);
-                    dynamic messageData;
-                    switch (packet.ContentType) {
-                        case "helloworld":
-                        default:
-                            messageData = JsonSerializer.Deserialize<string>(packet.Content);
-                            break;
-                    }
+                    try
+                    {
 
-                    InvokeMessageReceived(messageData);
+                        var packet = JsonSerializer.Deserialize<Packet>(messageString);
+                        InvokeMessageReceived(packet);
+                    }
+                    catch (JsonException)
+                    {
+                        // Json Exception happened, ignore and carry on
+                    }
                 }
             }
             catch (SocketException ex)
@@ -80,9 +84,9 @@ namespace Controller.Services.UDPComms
             }
         }
 
-        private void InvokeMessageReceived(dynamic message)
+        private void InvokeMessageReceived(Packet packet)
         {
-            MessageReceived?.Invoke(this, new MessageEventArgs(message));
+            MessageReceived?.Invoke(this, new MessageEventArgs(packet));
         }
 
         public void Stop()

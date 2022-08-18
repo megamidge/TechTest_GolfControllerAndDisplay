@@ -14,10 +14,25 @@
             <Setter Property="Width" Value="116"/>
         </Style>
     </Window.Resources>
-    <WrapPanel Orientation="Horizontal">
-        <Label Content="Broadcast Messaages" Width="800" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18"/>
-        <TextBlock Text="Click a button to broadcast a message." Width="800" FontSize="12" TextAlignment="Center"/>
-        <Button Content="Hello World" x:Name="btnHelloWorld"/>
-
-    </WrapPanel>
+    <DockPanel>
+        <Label DockPanel.Dock="Top" Content="Broadcast Messaages" Width="800" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18"/>
+        <TextBlock DockPanel.Dock="Top" Text="Click a button to broadcast a message." Width="800" FontSize="12" TextAlignment="Center"/>
+        <ScrollViewer DockPanel.Dock="Bottom">
+            <WrapPanel Orientation="Horizontal">
+                <Label Content="Location" Width="800" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="14"/>
+                <Button Content="Ball On Tee" x:Name="btnBallOnTee"/>
+                <Button Content="Ball In Hole" x:Name="btnBallInHole"/>
+                <Label Content="Feature" Width="800" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="14"/>
+                <Button Content="SuperTube" x:Name="btnSuperTubeActivated"/>
+                <Button Content="Hazard" x:Name="btnHazardActivated"/>
+                <Label Content="Score and Shots" Width="800" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="14"/>
+                <Button Content="Score ++" x:Name="btnIncrementScore"/>
+                <Button Content="Score --" x:Name="btnDecrementScore"/>
+                <Button Content="Shots ++" x:Name="btnIncrementShots"/>
+                <Button Content="Rest Shots" x:Name="btnResetShots"/>
+                <Label Content="Debug" Width="800" HorizontalContentAlignment="Left" FontWeight="Bold" FontSize="14"/>
+                <Button Content="Hello World" x:Name="btnHelloWorld"/>
+            </WrapPanel>
+        </ScrollViewer>
+    </DockPanel>
 </Window>
