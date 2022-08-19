@@ -44,7 +44,7 @@ namespace Controller
                 case MessageTypes.BallLocation:
                     var ballLocation = JsonSerializer.Deserialize<BallLocation>(e.Packet.Content);
                     logString = $"Ball is in/on {ballLocation.Location}";
-                    if(ballLocation.Location == Messages.Models.BallLocations.Hole)
+                    if(ballLocation.Location == Messages.Enums.BallLocations.Hole)
                     {
                         logString += $"\r\nHole in {_shots}";
                     }

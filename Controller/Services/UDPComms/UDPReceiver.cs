@@ -22,12 +22,11 @@ namespace Controller.Services.UDPComms
     internal class UDPReceiver
     {
         private const int Port = 19016;
-        private const string Address = "255.255.255.255";
 
         private UdpClient _receiver;
         private IPEndPoint _endPoint;
 
-        private Thread? receiverThread = null;
+        private Thread? _receiverThread = null;
 
         private bool _stop = false;
 
@@ -44,9 +43,9 @@ namespace Controller.Services.UDPComms
 
         public void Start()
         {
-            if (receiverThread is not null) return;
-            receiverThread = new Thread(Receive);
-            receiverThread.Start();
+            if (_receiverThread is not null) return;
+            _receiverThread = new Thread(Receive);
+            _receiverThread.Start();
         }
 
         private void Receive()
@@ -96,8 +95,8 @@ namespace Controller.Services.UDPComms
                 Console.WriteLine("Stopped Receiving.");
                 _stop = true;
                 _receiver?.Close(); // Close the receiver first!
-                receiverThread?.Join(); // Joins the thread with the current, thus waiting for thread to stop
-                receiverThread = null;
+                _receiverThread?.Join(); // Joins the thread with the current, thus waiting for thread to stop
+                _receiverThread = null;
             }
             catch
             {

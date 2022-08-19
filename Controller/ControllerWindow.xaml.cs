@@ -1,5 +1,5 @@
 ﻿using Controller.Messages;
-using Controller.Messages.Models;
+using Controller.Messages.Enums;
 using Controller.Services.UDPComms;
 using System.Windows;
 

@@ -14,8 +14,8 @@ namespace Controller
             var controllerWindow = new ControllerWindow();
             controllerWindow.Show();
 
-            var receiverTestWindow = new ReceiverTestWindow();
-            receiverTestWindow.Show();
+            //var receiverTestWindow = new ReceiverTestWindow();
+            //receiverTestWindow.Show();
         }
     }
 }
