@@ -1,5 +1,6 @@
 using Assets._Scripts;
 using Assets._Scripts.Messages;
+using Newtonsoft.Json;
 using UnityEngine;
 
 /// <summary>
@@ -34,23 +35,19 @@ public class GolfMessageReceiver : MonoBehaviour
                 Debug.Log("PACKET!" + packet.ContentType);
                 switch (packet.ContentType) {
                     case MessageTypes.Status:
-                        var statusUpdate = JsonUtility.FromJson<StatusUpdate>(packet.Content);
+                        var statusUpdate = JsonConvert.DeserializeObject<StatusUpdate>(packet.Content);
                         GolfManager.Instance.UpdateCommon(statusUpdate);
                         break;
                     case MessageTypes.Feature:
-                        var featureActivated = JsonUtility.FromJson<FeatureActivated>(packet.Content);
+                        var featureActivated = JsonConvert.DeserializeObject<FeatureActivated>(packet.Content);
                         GolfManager.Instance.UpdateCommon(featureActivated);
+                        GolfManager.Instance.HandleGolfAction(featureActivated);
                         break;
                     case MessageTypes.BallLocation:
-                        var ballLocation = JsonUtility.FromJson<BallLocation>(packet.Content);
+                        var ballLocation = JsonConvert.DeserializeObject<BallLocation>(packet.Content);
+                        
                         GolfManager.Instance.UpdateCommon(ballLocation);
-                        //logString = $"Ball is in/on {ballLocation.Location}";
-                        //if (ballLocation.Location == Messages.Enums.BallLocations.Hole)
-                        //{
-                        //    logString += $"\r\nHole in {_shots}";
-                        //}
-                        //_score = ballLocation.Score;
-                        //_shots = ballLocation.Shots;
+                        GolfManager.Instance.HandleGolfAction(ballLocation);
                         break;
                     case MessageTypes.HelloWorld:
                         //Debug.Log($"{JsonUtility.FromJson<string>(packet.Content)}");

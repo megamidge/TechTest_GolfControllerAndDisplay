@@ -1,14 +1,10 @@
 ﻿using Assets._Scripts.Messages;
 using Assets._Scripts.Messages.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._Scripts
 {
-    public enum GolfAnimations {
+    public enum GolfAnimations
+    {
         HelloWorld,
         OnTee,
         InHole,
@@ -31,24 +27,23 @@ namespace Assets._Scripts
 
         }
 
-        public void SetScore(int score)
-        {
-            _score = score;
-        }
-         
-        public void SetShots(int shots)
-        {
-            _shots = shots;
-        }
-
         /// <summary>
         /// Update variables available in the common data message that all golf messages derive.
         /// </summary>
         /// <param name="common"></param>
         public void UpdateCommon(CommonMessage common)
         {
+            bool scoreChanged = _score != common.Score;
+            bool shotsChanged = _shots != common.Shots;
+
             _score = common.Score;
             _shots = common.Shots;
+
+            if (scoreChanged)
+                _animator.AnimateScore();
+
+            if (shotsChanged)
+                _animator.AnimateShots();
         }
 
         /// <summary>
@@ -62,10 +57,10 @@ namespace Assets._Scripts
 
         public void HandleGolfAction(CommonMessage action)
         {
-            switch(action)
+            switch (action)
             {
                 case FeatureActivated featureActivated:
-                    switch(featureActivated.Feature)
+                    switch (featureActivated.Feature)
                     {
                         case Feature.SuperTube:
                             _animator.TriggerAnimation(GolfAnimator.Animations.SuperTubeActivated);
@@ -76,7 +71,8 @@ namespace Assets._Scripts
                     }
                     break;
                 case BallLocation ballLocation:
-                    switch (ballLocation.Location) {
+                    switch (ballLocation.Location)
+                    {
                         case BallLocations.Tee:
                             _animator.TriggerAnimation(GolfAnimator.Animations.BallOnTee);
                             break;

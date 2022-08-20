@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Messages.Enums;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ namespace Assets._Scripts.Messages
     [Serializable]
     public sealed class BallLocation : CommonMessage
     {
+        [JsonProperty("location")]
         public BallLocations Location;
     }
 }

@@ -1,4 +1,5 @@
 using Assets._Scripts;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -46,7 +47,7 @@ public class UDPReceiver
                 Debug.Log(messageString);
                 try
                 {
-                    var packet = JsonUtility.FromJson<Packet>(messageString);
+                    var packet = JsonConvert.DeserializeObject<Packet>(messageString);
                     EnqueuePacket(packet);
                 }
                 catch { }

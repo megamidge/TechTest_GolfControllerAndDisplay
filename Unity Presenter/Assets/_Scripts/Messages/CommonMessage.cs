@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 
 namespace Assets._Scripts.Messages
 {
@@ -8,8 +9,9 @@ namespace Assets._Scripts.Messages
     /// </summary>
     public abstract class CommonMessage
     {
+        [JsonProperty("score")]
         public int Score;
-
+        [JsonProperty("shots")]
         public int Shots;
     }
 }
