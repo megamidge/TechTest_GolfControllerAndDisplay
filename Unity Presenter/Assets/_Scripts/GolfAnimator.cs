@@ -23,6 +23,9 @@ public class GolfAnimator : MonoBehaviour
     private TMPro.TextMeshProUGUI _scoreText;
     private TMPro.TextMeshProUGUI _shotsText;
 
+    private Animator _scoreAnimator;
+    private Animator _shotsAnimator;
+
     // Text components for the final shots (hole in X, etc)
     private TMPro.TextMeshProUGUI _finalShotsHeaderText;
     private TMPro.TextMeshProUGUI _finalShotsMessageText;
@@ -69,6 +72,14 @@ public class GolfAnimator : MonoBehaviour
         if (shotsTextObject is not null)
             _shotsText = shotsTextObject.GetComponent<TMPro.TextMeshProUGUI>();
 
+        var scoreObject = allGameObjects.First(g => g.name == "ScorePanel");
+        if (scoreObject is not null)
+            _scoreAnimator = scoreObject.GetComponent<Animator>();
+        var shotsObject = allGameObjects.First(g => g.name == "ShotsPanel");
+        if (shotsObject is not null)
+            _shotsAnimator = shotsObject.GetComponent<Animator>();
+
+
         var finalShotsTextHeaderObject = allGameObjects.First(g => g.name == "textHoleInX");
         if (finalShotsTextHeaderObject is not null)
             _finalShotsHeaderText = finalShotsTextHeaderObject.GetComponent<TMPro.TextMeshProUGUI>();
@@ -76,6 +87,7 @@ public class GolfAnimator : MonoBehaviour
         var finalShotsTextMessageObject = allGameObjects.First(g => g.name == "textShotsMessage");
         if (finalShotsTextMessageObject is not null)
             _finalShotsMessageText = finalShotsTextMessageObject.GetComponent<TMPro.TextMeshProUGUI>();
+
 
     }
 
@@ -105,9 +117,6 @@ public class GolfAnimator : MonoBehaviour
             }
             _animationStarted = true;
         }
-
-
-        // TODO: Handle score/shots animations?
     }
 
     /// <summary>
@@ -141,13 +150,13 @@ public class GolfAnimator : MonoBehaviour
         var score = GolfManager.Instance.Score;
         _scoreText.SetText($"{score} points");
 
-        // TODO: Trigger an animation
+        _scoreAnimator.SetTrigger("Change");
     }
     public void AnimateShots()
     {
         var shots = GolfManager.Instance.Shots;
         _shotsText.SetText($"{shots} shots");
 
-        // TODO: Trigger an animation
+        _shotsAnimator.SetTrigger("Change");
     }
 }
