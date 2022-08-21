@@ -14,6 +14,6 @@
     </Window.Background>
     <Grid>
         <panels:ShotsAndScore/>
-        <Frame x:Name="frameView" Source="{Binding CurrentAnimation}" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="frameView"  NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
