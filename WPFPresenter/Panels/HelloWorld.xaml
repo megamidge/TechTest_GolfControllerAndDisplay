@@ -8,10 +8,203 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="HelloWorld">
-
+    <Page.Resources>
+        <CubicEase x:Key="EaseInOut" EasingMode="EaseInOut"/>
+    </Page.Resources>
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label>
-            <custom:OutlinedTextBlock Text="Hello World" FontSize="72" FontFamily="Ebrima" FontWeight="Bold" Stroke="White" StrokeThickness="4"/>
-        </Label>
+        <Rectangle x:Name="capsule" Fill="White" RadiusX="98" RadiusY="98" Margin="-109,52,-109,52" RenderTransformOrigin="0.5,0.5">
+            <Rectangle.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="capsule_scale"/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="7.021" x:Name="capsule_rotation"/>
+                    <TranslateTransform x:Name="capsule_translation" />
+                </TransformGroup>
+            </Rectangle.RenderTransform>
+            <Rectangle.Triggers>
+                <EventTrigger RoutedEvent="Rectangle.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="capsule_rotation"
+                                Storyboard.TargetProperty="(RotateTransform.Angle)"
+                                Duration="0:0:2.5"                                
+                                >
+                                <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    Value="-20.021" KeyTime="0:0:0.0"/>
+                                <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    Value="7.021" KeyTime="0:0:0.6"/>
+                                <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    Value="-7.021" KeyTime="0:0:1.6"/>
+                                <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    Value="-90" KeyTime="0:0:2.6"/>
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimation
+                                Storyboard.TargetName="capsule_translation"
+                                Storyboard.TargetProperty="(TranslateTransform.Y)"
+                                From="600.0" Duration="0:0:0.6"                                
+                                EasingFunction="{StaticResource EaseInOut}"
+                                />
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="capsule_scale"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
+                                Duration="0:0:2.5"
+                                >
+                                <EasingDoubleKeyFrame
+                                    Value="0.2" KeyTime="0:0:0.0"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="1" KeyTime="0:0:0.6"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="1" KeyTime="0:0:1.6"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="0" KeyTime="0:0:2.5"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                            </DoubleAnimationUsingKeyFrames>
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="capsule_scale"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+                                 Duration="0:0:2.5"
+                                >
+                                <EasingDoubleKeyFrame
+                                    Value="0.2" KeyTime="0:0:0.0"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="1" KeyTime="0:0:0.6"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="1" KeyTime="0:0:1.6"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="0" KeyTime="0:0:2.5"
+                                    EasingFunction="{StaticResource EaseInOut}"                                                      
+                                    />
+                            </DoubleAnimationUsingKeyFrames>
+                            
+
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Rectangle.Triggers>
+        </Rectangle>
+        <Grid Width="300" Height="300" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="text_scale"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform x:Name="text_translation" X="0" Y="0" />
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="Grid.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetName="text_scale"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleX)"
+                                From="0.1" To="1.0" Duration="0:0:0.75"
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                />
+                            <DoubleAnimation
+                                Storyboard.TargetName="text_scale"
+                                Storyboard.TargetProperty="(ScaleTransform.ScaleY)"
+                                From="0.1" To="1.0" Duration="0:0:0.75"                                
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                />
+                            <DoubleAnimationUsingKeyFrames
+                                Storyboard.TargetName="text_translation"
+                                Storyboard.TargetProperty="(TranslateTransform.Y)"
+                                Duration="0:0:0.75"
+                                >
+                                <EasingDoubleKeyFrame
+                                    Value="700"
+                                    KeyTime="0:0:0"
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="-50"
+                                    KeyTime="0:0:0.6"
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    />
+                                <EasingDoubleKeyFrame
+                                    Value="0"
+                                    KeyTime="0:0:0.75"
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                    />
+                                
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Grid.Triggers>
+            <custom:OutlinedTextBlock Text="HELLO" FontSize="72" FontFamily="Ebrima" FontWeight="Bold" Stroke="White" StrokeThickness="4" TextAlignment="Center" TextWrapping="NoWrap" Margin="0,63,0,128" RenderTransformOrigin="0.5,0.5">
+                <custom:OutlinedTextBlock.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform x:Name="hello_translation" X="0" Y="0" />
+                    </TransformGroup>
+                </custom:OutlinedTextBlock.RenderTransform>
+                <custom:OutlinedTextBlock.Triggers>
+                    <EventTrigger RoutedEvent="custom:OutlinedTextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames
+                                    
+                                Storyboard.TargetName="hello_translation"
+                                Storyboard.TargetProperty="(TranslateTransform.X)"
+                                    Duration="0:0:2.5">
+                                    <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                        Value="0" KeyTime="0:0:1.6"/>
+                                    <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                        Value="700" KeyTime="0:0:2.5"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </custom:OutlinedTextBlock.Triggers>
+            </custom:OutlinedTextBlock>
+            <custom:OutlinedTextBlock Text="WORLD" FontSize="72" FontFamily="Ebrima" FontWeight="Bold" Stroke="White" StrokeThickness="4" TextAlignment="Center" TextWrapping="NoWrap" Margin="0,130,0,70">
+                <custom:OutlinedTextBlock.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform x:Name="world_translation" X="0" Y="0" />
+                    </TransformGroup>
+                </custom:OutlinedTextBlock.RenderTransform>
+                <custom:OutlinedTextBlock.Triggers>
+                    <EventTrigger RoutedEvent="custom:OutlinedTextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimationUsingKeyFrames
+                                    
+                                Storyboard.TargetName="world_translation"
+                                Storyboard.TargetProperty="(TranslateTransform.X)"
+                                    Duration="0:0:2.5">
+                                    <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                        Value="0" KeyTime="0:0:1.6"/>
+                                    <EasingDoubleKeyFrame 
+                                    EasingFunction="{StaticResource EaseInOut}"
+                                        Value="-700" KeyTime="0:0:2.5"/>
+                                </DoubleAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </custom:OutlinedTextBlock.Triggers>
+            </custom:OutlinedTextBlock>
+        </Grid>
     </Grid>
 </Page>

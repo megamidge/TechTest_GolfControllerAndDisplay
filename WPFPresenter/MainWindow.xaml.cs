@@ -45,6 +45,14 @@ namespace WPFPresenter
 
         private void AnimationTriggered(object? sender, GolfManager.AnimationTriggeredEventArgs e)
         {
+            // Set the source to null to remove whatever is already there - means the same animation can be re-triggered
+            this.Dispatcher.Invoke(() =>
+            {
+                frameView.Source = null;
+            });
+            // Sleep for a short moment
+            System.Threading.Thread.Sleep(10);
+            // Set the new source
             Uri? pageUri;
             _pages.TryGetValue(e.Animation, out pageUri);
             this.Dispatcher.Invoke(() =>
