@@ -4,12 +4,16 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresenter"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:panels="clr-namespace:WPFPresenter.Panels"
+        mc:Ignorable="d"        
+        Title="MainWindow" Height="450" Width="800"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        >
     <Window.Background>
-        <ImageBrush ImageSource="/gradient.png"/>
+        <ImageBrush ImageSource="textures/gradient.png"/>
     </Window.Background>
     <Grid>
-
+        <panels:ShotsAndScore/>
+        <Frame x:Name="frameView" Source="{Binding CurrentAnimation}" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

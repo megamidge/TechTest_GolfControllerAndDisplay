@@ -21,13 +21,36 @@ namespace WPFPresenter
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UDPReceiver _receiver;
+        private GolfMessageReceiver _receiver;
 
-        
+        private Dictionary<GolfManager.Animations, Uri> _pages;
 
         public MainWindow()
         {
+            _receiver = new();
             InitializeComponent();
+            _pages = new Dictionary<GolfManager.Animations, Uri>();
+            AddAnimationToDictionary(GolfManager.Animations.HelloWorld, "Panels/HelloWorld.xaml");
+            AddAnimationToDictionary(GolfManager.Animations.BallOnTee, "Panels/BallOnTee.xaml");
+            AddAnimationToDictionary(GolfManager.Animations.BallInHole, "Panels/BallInHole.xaml");
+            AddAnimationToDictionary(GolfManager.Animations.SuperTubeActivated, "Panels/SuperTubeActivated.xaml");
+            AddAnimationToDictionary(GolfManager.Animations.HazardActivated, "Panels/HazardActivated.xaml");
+            GolfManager.Instance.AnimationTriggered += AnimationTriggered;
+        }
+
+        private void AddAnimationToDictionary(GolfManager.Animations animation, string path)
+        {
+            _pages.Add(animation, new Uri(path, UriKind.Relative));
+        }
+
+        private void AnimationTriggered(object? sender, GolfManager.AnimationTriggeredEventArgs e)
+        {
+            Uri? pageUri;
+            _pages.TryGetValue(e.Animation, out pageUri);
+            this.Dispatcher.Invoke(() =>
+            {
+                frameView.Source = pageUri;
+            });
         }
     }
 }

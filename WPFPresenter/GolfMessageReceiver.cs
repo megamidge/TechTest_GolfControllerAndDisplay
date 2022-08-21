@@ -34,6 +34,7 @@ public class GolfMessageReceiver
                 GolfManager.Instance.HandleGolfAction(ballLocation);
                 break;
             case MessageTypes.HelloWorld:
+                GolfManager.Instance.HandleHelloWorld();
                 break;
         }
 
