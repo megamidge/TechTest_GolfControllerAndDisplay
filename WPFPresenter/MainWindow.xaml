@@ -13,7 +13,7 @@
         <ImageBrush ImageSource="textures/gradient.png"/>
     </Window.Background>
     <Grid>
-        <panels:ShotsAndScore/>
         <Frame x:Name="frameView"  NavigationUIVisibility="Hidden"/>
+        <panels:ShotsAndScore/>
     </Grid>
 </Window>

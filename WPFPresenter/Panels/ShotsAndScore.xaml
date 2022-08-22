@@ -7,8 +7,63 @@
              mc:Ignorable="d" 
              DataContext="{Binding RelativeSource={RelativeSource Self}}"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Storyboard x:Key="ShotsChanged">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShotsGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ShotsGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ScoreChanged">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScoreGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScoreGrid" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2"/>
+                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </UserControl.Resources>
     <DockPanel>
-        <Grid DockPanel.Dock="Top" Height="59" Width="163" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Right" VerticalAlignment="Top" >
+        <Grid x:Name="ScoreGrid" DockPanel.Dock="Top" Height="59" Width="163" RenderTransformOrigin="1,0" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="local:ShotsAndScore.ScoreChangedAnimationRequested">
+                    <BeginStoryboard Storyboard="{StaticResource ScoreChanged}"/>
+                </EventTrigger>
+            </Grid.Triggers>
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -31,7 +86,12 @@
             </Grid.Background>
             <Label x:Name="lblScore" Content="{Binding ScoreText, FallbackValue='0 POINTS'}" HorizontalAlignment="Right" VerticalAlignment="Center" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch" FontSize="20" FontWeight="Bold" FontFamily="Ebrima" Margin="0,0,12,0"/>
         </Grid>
-        <Grid DockPanel.Dock="Bottom"  Height="59" Width="163" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
+        <Grid x:Name="ShotsGrid" DockPanel.Dock="Bottom"  Height="59" Width="163" RenderTransformOrigin="0,1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="local:ShotsAndScore.ShotsChangedAnimationRequested">
+                    <BeginStoryboard Storyboard="{StaticResource ShotsChanged}"/>
+                </EventTrigger>
+            </Grid.Triggers>
             <Grid.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

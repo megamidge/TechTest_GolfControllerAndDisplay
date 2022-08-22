@@ -31,7 +31,6 @@ namespace WPFPresenter
         public int Shots => _shots;
         public GolfManager() : base()
         {
-
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
